@@ -70,14 +70,14 @@
 			var fullscreenstruct = structNew();
 			// Validate that a proper style was passed in
 			var validStyles = 'fullscreen|page-list|minimal';
-			if(!listFind(validatStyles,Arguments.style,'|'))return '<!-- Not a valid style for music player -->';
+			if(!listFind(validStyles,Arguments.style,'|'))return '<!-- Not a valid style for music player -->';
 			
 			// Build a CF struct for the proper styles
 			settingsstruct = {
 				autoPlay = Arguments.autoPlay,
 				autoAdvance = Arguments.autoAdvance,
 				style = Arguments.style,
-				defaultVolume = Arguments.defaultVolumne			
+				defaultVolume = Arguments.defaultVolume			
 			};
 			if(Arguments.style IS 'fullscreen'){
 				fullscreenstruct = {
