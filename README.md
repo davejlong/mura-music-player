@@ -2,6 +2,12 @@
 
 The Mura Music Player is a Mura plugin that uses [23rd & Walnut's Fullscreen Media Player](http://codecanyon.net/item/fullscreen-music-player/106710?ref=23andwalnut).  To use the plugin you must purchase a license for the Fullscreen Media Player from [CodeCanyon](http://codecanyon.net/item/fullscreen-music-player/106710?ref=23andwalnut).
 
+## License
+![Creative Commons License](http://i.creativecommons.org/l/by-sa/3.0/88x31.png)
+
+Mura Music Player by [David Long](http://www.davejlong.com) is licensed under a [Creative Commons Attribution-ShareAlike 3.0 Unported License](http://creativecommons.org/licenses/by-sa/3.0/).
+
+
 ## Installing Fullscreen Media Player
 After [buying](http://codecanyon.net/item/fullscreen-music-player/106710?ref=23andwalnut), downloading and unzipping the music player you must copy the directories as follows:
 
