@@ -5,11 +5,10 @@
 		<cfset variables.pluginConfig.addEventHandler(this) />
 	</cffunction>
 	
-	<cffunction name="onPageMuraMusicPlayerRenderStart" output="false" returntype="any">
+	<cffunction name="onRenderStart" output="false" returntype="any">
 		<!--- Add CSS and JS to header --->
 		<cfsavecontent variable="PowerToolsHeader">
 			<cfoutput>
-				<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.0/jquery.min.js"></script>
 				<script type="text/javascript" src="#variables.pluginConfig.getDirectory()#/assets/soundmanager/script/soundmanager2.js"></script>
 				<script type="text/javascript" src="#variables.pluginConfig.getDirectory()#/assets/js/ttwFullScreenMusic.js"></script>
 				<script type="text/javascript" src="#variables.pluginConfig.getDirectory()#/assets/js/muramusicplayer.js"></script>

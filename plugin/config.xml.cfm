@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin>
-	<name>Open Media Player</name>
-	<package>MuraMediaPlayer</package>
+	<name>Mura Music Player</name>
+	<package>MuraMusicPlayer</package>
 	<loadPriority>5</loadPriority>
 	<version>@{version}@.@{buildnumber}@</version>
 	<provider>Dave Long</provider>
