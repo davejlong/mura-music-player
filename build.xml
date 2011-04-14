@@ -39,6 +39,7 @@
 				<include name="**/config/**" />
 				<include name="**/eventHandlers/**" />
 				<include name="index.cfm" />
+				<exclude name="**/.gitignore" />
 			</fileset>
 		</copy>
 	</target>
