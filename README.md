@@ -35,5 +35,6 @@ Mura Music Player is very easy to use out of the box.  On a content page page th
 
 ## Future Releases
 
--2.0 - Functionality to create reusable playlists in an administration tool.
+- 1.5 - Mura tag to pull a component in as a reusable playlist with tons of settings.  Mobile playlist for Mura mobile themes
+- 2.0 - Functionality to create reusable playlists in an administration tool.
 
