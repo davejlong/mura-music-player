@@ -1,7 +1,21 @@
 .ui-mobile-viewport #volume{
-	position:fixed !important;
+	position:absolute !important;
+	top:40px;
 }
 
 .ui-mobile-viewport .controls-container.page-list{
-	position:fixed !important;
+	position:absolute !important;
+	top:40px;
+	z-index:99;
 }
+
+.ui-mobile-viewport .playlist.page-list{
+	top:0 !important;
+	height:auto !important;
+}
+.ui-mobile-viewport .openPlayerContent.page-list{
+	height:auto !important;
+	z-index:1;
+}
+
+.ui-mobile-viewport #main h2{margin-top:35px !important;}
