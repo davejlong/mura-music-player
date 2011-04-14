@@ -5,7 +5,7 @@
 		<cfset variables.pluginConfig.addEventHandler(this) />
 	</cffunction>
 	
-	<cffunction name="onPageMuraMediaPlayerRenderStart" output="false" returntype="any">
+	<cffunction name="onPageMuraMusicPlayerRenderStart" output="false" returntype="any">
 		<!--- Add CSS and JS to header --->
 		<cfsavecontent variable="PowerToolsHeader">
 			<cfoutput>

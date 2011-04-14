@@ -2,7 +2,7 @@
 
 	<cffunction name="init" returntype="any" access="public" output="false">
 		<cfargument name="pluginConfig" type="any" default="" />
-
+		<cfset variables.package = 'MuraMusicPlayer' />
 		<cfset variables.pluginConfig = arguments.pluginConfig />
 
 		<cfreturn this />
@@ -37,7 +37,7 @@
 				<cfscript>
 					local.subType = application.classExtensionManager.getSubTypeBean();
 					local.subType.setType("Page");
-					local.subType.setSubType(variables.pluginConfig.getSetting('package'));
+					local.subType.setSubType(variables.package);
 					local.subType.setSiteID(local.rsSites.siteid);
 					local.subType.setBaseTable("tcontent"); // if you don't set this, when deleting the plugin, the subType won't get updated!
 					local.subType.setBaseKeyField("contentHistID");
