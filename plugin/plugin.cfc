@@ -27,8 +27,8 @@
 			var local = structNew();
 
 			// grab which sites this plugin has been assigned to
-			local.rsSites 		= variables.config.getAssignedSites();
-			local.filestore 	= variables.config.getConfigBean().getFileStore();
+			local.rsSites 		= variables.pluginConfig.getAssignedSites();
+			local.filestore 	= variables.pluginConfig.getConfigBean().getFileStore();
 			local.subType 		= application.classExtensionManager.getSubTypeBean();
 		</cfscript>
 		<!--- create the attribute sets that belong to this subType --->
@@ -37,12 +37,17 @@
 				<cfscript>
 					local.subType = application.classExtensionManager.getSubTypeBean();
 					local.subType.setType("Page");
-					local.subType.setSubType(variables.PackageName);
+					local.subType.setSubType(variables.pluginConfig.getSetting('package'));
 					local.subType.setSiteID(local.rsSites.siteid);
 					local.subType.setBaseTable("tcontent"); // if you don't set this, when deleting the plugin, the subType won't get updated!
 					local.subType.setBaseKeyField("contentHistID");
 					local.subType.load();
 					local.subType.save();
+					// EXTEND SET SETUP
+					// upon creation of the new subType, an Extend Set called 'Default' is auto-magically created for you.
+					// i don't see any need to maintain the 'Default' extend set since i'm creating my own custom one.
+					local.extendSet = local.subType.getExtendSetByName('Default');
+					local.extendSet.delete();
 				</cfscript>
 			<cfcatch>
 				<cfthrow

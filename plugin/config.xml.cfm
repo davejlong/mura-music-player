@@ -3,7 +3,7 @@
 	<name>Open Media Player</name>
 	<package>MuraMediaPlayer</package>
 	<loadPriority>5</loadPriority>
-	<version>@@{version}@@.0</version>
+	<version>@{version}@.@{buildnumber}@</version>
 	<provider>Dave Long</provider>
 	<providerURL>http://www.davejlong.com</providerURL>
 	<category>Media Player</category>

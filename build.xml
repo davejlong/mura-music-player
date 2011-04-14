@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<project name="StudentMS" default="zip" basedir=".">
+<project name="Mura Music Player" default="zip" basedir=".">
 	<propertyfile file="./.ant/build.properties">
 		<entry key="version.buildnumber" type="int" default="0" operation="+" pattern="00" />
 	</propertyfile>
@@ -37,6 +37,7 @@
 				<include name="**/plugin/**" />
 				<include name="**/assets/**" />
 				<include name="**/config/**" />
+				<include name="**/eventHandlers/**" />
 				<include name="index.cfm" />
 			</fileset>
 		</copy>
