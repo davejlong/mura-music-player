@@ -8,6 +8,7 @@
 	<cffunction name="onRenderStart" output="false" returntype="any">
 		<cfargument name="event" />
 		<cfargument name="$" />
+		<cfset var PowerToolsHeader = '' />
 		<!--- Let us call other functions from the mura tag --->
 		<cfset event.MuraMusicPlayer = this />
 		<cfset $.musicplay = this />
@@ -42,13 +43,46 @@
 					}*/
 				</script>
 				<link rel="stylesheet" type="text/css" href="/plugins/#variables.pluginConfig.getDirectory()#/assets/css/style.css"/>
+				<link rel="stylesheet" type="text/css" href="/plugins/#variables.pluginConfig.getDirectory()#/assets/css/musicplayer.css"/>
 			</cfoutput>
 		</cfsavecontent>
 
 		<cfhtmlhead text="#PowerToolsHeader#">
 	</cffunction>
 	
-	
+	<cffunction name="onPageMuraMusicPlayerBodyRender" output="true" returntype="void">
+		<cfargument name="event" />
+		
+		<cfscript>
+			var PowerToolsHeader = '';
+			var body = event.getContentRenderer().setDynamicContent(event.getContentBean().getBody());
+			var style = 'minimal';
+			if(Request.muramobilerequest)style = 'page-list';	
+		</cfscript>
+		<!--- Add CSS and JS to header --->
+		<cfsavecontent variable="PowerToolsHeader">
+			<cfoutput>
+				<script type="text/javascript">
+					/**
+					  * Fullscreen music initialization
+					  * Always make sure this call is wrapped in
+					  * soundManager.onload to ensure all dependencies are loaded
+					* */
+					
+					soundManager.onload = function(){
+							$('.playlist').ttwFullScreenMusic({style:'#style#', autoPlay:false});
+					}
+				</script>
+			</cfoutput>
+		</cfsavecontent>
+		<cfprocessingdirective suppresswhitespace="true">
+			<cfsetting enablecfoutputonly="true" />
+			<cfhtmlhead text="#PowerToolsHeader#">
+			<cfoutput>#body#</cfoutput>
+			<cfsetting enablecfoutputonly="false" />
+		</cfprocessingdirective>
+		
+	</cffunction>	
 	<!---******************* MuraMusicPlayer Methods *******************--->
 	<cffunction name="showPlayer" access="public" output="false" returntype="String">
 		<cfargument name="component" type="string" required="true" hint="The ID of the component that contains the playlist." />
@@ -62,6 +96,7 @@
 		<cfargument name="preloadImages" type="boolean" required="false" default="true" />
 		<cfargument name="backgroundColor" type="string" required="false" default="000000" />
 		<cfargument name="defaultVolume" type="numeric" required="false" default="100" />
+		
 		
 		<cfscript>
 			var headcode = '';

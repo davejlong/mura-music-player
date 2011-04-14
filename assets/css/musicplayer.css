@@ -1,0 +1,7 @@
+.ui-mobile-viewport #volume{
+	position:fixed !important;
+}
+
+.ui-mobile-viewport .controls-container.page-list{
+	position:fixed !important;
+}
