@@ -6,6 +6,12 @@
 	</cffunction>
 	
 	<cffunction name="onRenderStart" output="false" returntype="any">
+		<cfargument name="event" />
+		<cfargument name="$" />
+		<!--- Let us call other functions from the mura tag --->
+		<cfset event.MuraMusicPlayer = this />
+		<cfset $.musicplay = this />
+		
 		<!--- Add CSS and JS to header --->
 		<cfsavecontent variable="PowerToolsHeader">
 			<cfoutput>
@@ -31,15 +37,77 @@
 					  * soundManager.onload to ensure all dependencies are loaded
 					* */
 					
-					soundManager.onload = function(){
+					/*soundManager.onload = function(){
 						$('.playlist').ttwFullScreenMusic({style:'minimal'});
-					}
+					}*/
 				</script>
 				<link rel="stylesheet" type="text/css" href="/plugins/#variables.pluginConfig.getDirectory()#/assets/css/style.css"/>
 			</cfoutput>
 		</cfsavecontent>
 
 		<cfhtmlhead text="#PowerToolsHeader#">
+	</cffunction>
+	
+	
+	<!---******************* MuraMusicPlayer Methods *******************--->
+	<cffunction name="showPlayer" access="public" output="false" returntype="String">
+		<cfargument name="component" type="string" required="true" hint="The ID of the component that contains the playlist." />
+		<cfargument name="autoPlay" type="boolean" required="false" default="false" />
+		<cfargument name="autoAdvance" type="boolean" required="false" default="true" />
+		<cfargument name="style" type="string" required="false" default="minimal" />
+		<cfargument name="showPlaylist" type="boolean" required="false" default="true" />
+		<cfargument name="autoHideControllers" type="boolean" required="false" default="false" />
+		<cfargument name="controlsAutoHideInterval" type="numeric" required="false" default="2000" />
+		<cfargument name="loadFirstItem" type="boolean" required="false" default="true" />
+		<cfargument name="preloadImages" type="boolean" required="false" default="true" />
+		<cfargument name="backgroundColor" type="string" required="false" default="000000" />
+		<cfargument name="defaultVolume" type="numeric" required="false" default="100" />
+		
+		<cfscript>
+			var headcode = '';
+			var bodycode = '';
+			var settingsstruct = structNew();
+			var fullscreenstruct = structNew();
+			// Validate that a proper style was passed in
+			var validStyles = 'fullscreen|page-list|minimal';
+			if(!listFind(validatStyles,Arguments.style,'|'))return '<!-- Not a valid style for music player -->';
+			
+			// Build a CF struct for the proper styles
+			settingsstruct = {
+				autoPlay = Arguments.autoPlay,
+				autoAdvance = Arguments.autoAdvance,
+				style = Arguments.style,
+				defaultVolume = Arguments.defaultVolumne			
+			};
+			if(Arguments.style IS 'fullscreen'){
+				fullscreenstruct = {
+					showPlaylist = Arguments.showPlaylist,
+					autoHideControls = Arguments.autoHideControls,
+					controlsAutoHideInterval = Arguments.controlsAutoHideInterval,
+					loadFirstItem = Arguments.loadFirstItem,
+					preloadImages = Arguments.preloadImages,
+					backgroundColor = Arguments.backgroundColor
+				};
+				
+				structAppend(settingsstruct,fullscreenstruct);
+			}
+		</cfscript>
+		<!--- Set our head content --->
+		<cfsavecontent variable="headcode">
+			<cfoutput>
+				<script type="text/javascript">
+					soundManager.onload = function(){
+						$('.playlist').ttwFullScreenMusic(#serializeJson(settingsstruct)#);
+					}
+				</script>
+			</cfoutput>
+		</cfsavecontent>
+		<cfhtmlhead text="#headcode#" />
+		
+		<!--- Create the body content --->
+		<cfsavecontent variable="bodycode">
+			<cfoutput>#$.dspObject('component',Arguments.component)#</cfoutput>
+		</cfsavecontent>
 	</cffunction>
 
 </cfcomponent>
