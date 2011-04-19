@@ -2,6 +2,7 @@
 
 	<cffunction name="onApplicationLoad" access="public" returntype="void" output="false">
 		<cfargument name="event" />
+		<cfargument name="$" />
 		<cfset variables.pluginConfig.addEventHandler(this) />
 	</cffunction>
 	
@@ -9,6 +10,9 @@
 		<cfargument name="event" />
 		<cfargument name="$" />
 		<cfset var PowerToolsHeader = '' />
+		
+		<cfset $.getContentRenderer().injectMethod('showPlayer', showPlayer) />
+		
 		<!--- Let us call other functions from the mura tag --->
 		<cfset event.MuraMusicPlayer = this />
 		<cfset $.musicplay = this />
@@ -90,12 +94,13 @@
 		<cfargument name="autoAdvance" type="boolean" required="false" default="true" />
 		<cfargument name="style" type="string" required="false" default="minimal" />
 		<cfargument name="showPlaylist" type="boolean" required="false" default="true" />
-		<cfargument name="autoHideControllers" type="boolean" required="false" default="false" />
+		<cfargument name="autoHideControls" type="boolean" required="false" default="false" />
 		<cfargument name="controlsAutoHideInterval" type="numeric" required="false" default="2000" />
 		<cfargument name="loadFirstItem" type="boolean" required="false" default="true" />
 		<cfargument name="preloadImages" type="boolean" required="false" default="true" />
 		<cfargument name="backgroundColor" type="string" required="false" default="000000" />
 		<cfargument name="defaultVolume" type="numeric" required="false" default="100" />
+		<cfargument name="$" />
 		
 		
 		<cfscript>
@@ -106,25 +111,19 @@
 			// Validate that a proper style was passed in
 			var validStyles = 'fullscreen|page-list|minimal';
 			if(!listFind(validStyles,Arguments.style,'|'))return '<!-- Not a valid style for music player -->';
-			
+						
 			// Build a CF struct for the proper styles
-			settingsstruct = {
-				autoPlay = Arguments.autoPlay,
-				autoAdvance = Arguments.autoAdvance,
-				style = Arguments.style,
-				defaultVolume = Arguments.defaultVolume			
-			};
+			settingsstruct['autoPlay'] = Arguments.autoPlay;
+			settingsstruct['autoAdvance'] = Arguments.autoAdvance;
+			settingsstruct['style'] = Arguments.style;
+			settingsstruct['defaultVolume'] = Arguments.defaultVolume;
+
 			if(Arguments.style IS 'fullscreen'){
-				fullscreenstruct = {
-					showPlaylist = Arguments.showPlaylist,
-					autoHideControls = Arguments.autoHideControls,
-					controlsAutoHideInterval = Arguments.controlsAutoHideInterval,
-					loadFirstItem = Arguments.loadFirstItem,
-					preloadImages = Arguments.preloadImages,
-					backgroundColor = Arguments.backgroundColor
-				};
-				
-				structAppend(settingsstruct,fullscreenstruct);
+				settingsstruct['showPlaylist'] = Arguments.showPlaylist;
+				settingsstruct['autoHideControls'] = Arguments.autoHideControls;
+				settingsstruct['loadFirstItem'] = Arguments.loadFirstItem;
+				settingsstruct['preloadImages'] = Arguments.preloadImages;
+				settingsstruct['backgroundColor'] = Arguments.backgroundColor;
 			}
 		</cfscript>
 		<!--- Set our head content --->
@@ -132,7 +131,7 @@
 			<cfoutput>
 				<script type="text/javascript">
 					soundManager.onload = function(){
-						$('.playlist').ttwFullScreenMusic(#serializeJson(settingsstruct)#);
+						$('.playlist').ttwFullScreenMusic(#reReplace(serializeJson(settingsstruct), '"([A-Za-z0-9]+)":','\1:','all')#);
 					}
 				</script>
 			</cfoutput>
@@ -143,6 +142,8 @@
 		<cfsavecontent variable="bodycode">
 			<cfoutput>#$.dspObject('component',Arguments.component)#</cfoutput>
 		</cfsavecontent>
+		
+		<cfreturn bodycode />
 	</cffunction>
 
 </cfcomponent>

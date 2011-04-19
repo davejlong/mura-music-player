@@ -11,7 +11,6 @@ Mura Music Player by [David Long](http://www.davejlong.com) is licensed under a 
 After [buying](http://codecanyon.net/item/fullscreen-music-player/106710?ref=23andwalnut), downloading and unzipping the music player you must copy the directories as follows:
 
 - **{SOURCE}** - **{TARGET}**
-- css/style.css - assets/css/style.css
 - images/\* -assets/ images/\*
 - js/openMediaPlayer-min.js - assets/js/openMediaPlayer-min.js
 - js/ttwFullScreenMusic.js - assets/js/ttwFullScreenMusic.js

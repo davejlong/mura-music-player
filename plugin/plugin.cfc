@@ -10,6 +10,7 @@
 
 	<cffunction name="install" returntype="void" access="public" output="false">
 		<!--- TODO: Auto-generated method stub --->
+		<cfset upsertMuraMusicPlayerSubType() />
 	</cffunction>
 
 	<cffunction name="update" returntype="void" access="public" output="false">
